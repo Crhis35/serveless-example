@@ -1,6 +1,6 @@
-const { model } = require('dynamoose');
-const genSchema = require('./Base');
-const CourseCategory = require('./CourseCategory');
+import { model } from 'dynamoose';
+import genSchema from './Base';
+import CourseCategory from './CourseCategory';
 
 const courseSchema = genSchema({
   name: {
@@ -23,4 +23,4 @@ const courseSchema = genSchema({
 
 const Course = model('Course_rcv001', courseSchema);
 
-module.exports = Course;
+export default Course;

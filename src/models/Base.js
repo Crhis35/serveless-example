@@ -1,4 +1,4 @@
-const { Schema } = require('dynamoose');
+import { Schema } from 'dynamoose';
 
 const genSchema = (schema) => {
   return new Schema(
@@ -16,4 +16,4 @@ const genSchema = (schema) => {
   );
 };
 
-module.exports = genSchema;
+export default genSchema;

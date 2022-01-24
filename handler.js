@@ -1,12 +1,15 @@
-'use strict';
+import User from './src/models/User';
 
-module.exports.hello = async (event) => {
+export async function hello(event) {
+  const newUser = await User.create({
+    ...event.body,
+  });
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
+        input: newUser,
       },
       null,
       2
@@ -15,4 +18,4 @@ module.exports.hello = async (event) => {
 
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+}

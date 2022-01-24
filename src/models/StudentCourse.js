@@ -1,11 +1,11 @@
-const { model } = require('dynamoose');
-const genSchema = require('./Base');
+import validator from 'validator';
+
+import { model } from 'dynamoose';
+import genSchema from './Base';
+import Course from './Course';
 
 const studentCourseSchema = genSchema({
-  courseld: {
-    type: String,
-    required: true,
-  },
+  courseld: Course,
   finish: {
     type: Boolean,
     required: true,
@@ -20,6 +20,7 @@ const studentCourseSchema = genSchema({
       date: {
         type: Date,
         required: true,
+        validate: validator.isDate,
       },
       name: {
         type: String,
@@ -47,4 +48,4 @@ const studentCourseSchema = genSchema({
 
 const StudentCourse = model(`StudentCourse_rcv001`, studentCourseSchema);
 
-module.exports = StudentCourse;
+export default StudentCourse;

@@ -1,5 +1,5 @@
-const { model } = require('dynamoose');
-const genSchema = require('./Base');
+import { model } from 'dynamoose';
+import genSchema from './Base';
 
 const topicSchema = genSchema({
   title: {
@@ -10,4 +10,4 @@ const topicSchema = genSchema({
 
 const Topic = model(`Topic_rcv001`, topicSchema);
 
-module.exports = Topic;
+export default Topic;

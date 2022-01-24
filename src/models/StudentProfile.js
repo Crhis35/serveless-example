@@ -1,7 +1,7 @@
-const { model } = require('dynamoose');
+import { model } from 'dynamoose';
 
-const genSchema = require('./Base');
-const User = require('./User');
+import genSchema from './Base';
+import User from './User';
 
 const studentProfileSchema = genSchema({
   skills: User,
@@ -55,4 +55,4 @@ const studentProfileSchema = genSchema({
   },
 });
 
-module.exports = model('StudentProfile_rcv001', studentProfileSchema);
+export default model('StudentProfile_rcv001', studentProfileSchema);

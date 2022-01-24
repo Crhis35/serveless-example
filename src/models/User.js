@@ -1,7 +1,7 @@
-const { model } = require('dynamoose');
-const { emailChecker } = require('../constants');
+import { model } from 'dynamoose';
+import validator from 'validator';
 
-const genSchema = require('./Base');
+import genSchema from './Base';
 
 const userSchema = genSchema({
   role: {
@@ -23,7 +23,7 @@ const userSchema = genSchema({
     type: String,
     required: true,
     trim: true,
-    validate: emailChecker,
+    validate: validator.isEmail,
     index: {
       name: 'emailIndex',
       global: true,
@@ -71,4 +71,4 @@ const userSchema = genSchema({
 
 const User = model('User_rcv001', userSchema);
 
-module.exports = User;
+export default User;

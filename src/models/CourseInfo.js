@@ -1,5 +1,5 @@
-const { model } = require('dynamoose');
-const genSchema = require('./Base');
+import { model } from 'dynamoose';
+import genSchema from './Base';
 
 const courseInfoSchema = genSchema({
   week: {
@@ -18,4 +18,4 @@ const courseInfoSchema = genSchema({
 
 const CourseInfo = model(`CourseInfo_rcv001`, courseInfoSchema);
 
-module.exports = CourseInfo;
+export default CourseInfo;
