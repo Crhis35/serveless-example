@@ -8,12 +8,13 @@ import { nanoid } from 'nanoid';
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
-  if (await User.scan().where('email').eq(userBody.email).exec()) {
+  const users = await User.scan().where('email').eq(userBody.email).exec();
+  if (Array.isArray(users) && users.length > 0) {
     throw new Error('User already exists');
   }
   return User.create({
-    ...userBody,
     id: nanoid(),
+    ...userBody,
   });
 };
 /**

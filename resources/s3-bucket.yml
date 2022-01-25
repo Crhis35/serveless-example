@@ -3,6 +3,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       # Set the CORS policy
+      BucketName: rankcv-buckert-${self:custom.stage}
       CorsConfiguration:
         CorsRules:
           - AllowedOrigins:

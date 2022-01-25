@@ -8,6 +8,10 @@ const genSchema = (schema) => {
         required: true,
         hashKey: true,
       },
+      tags: {
+        type: [String],
+        required: false,
+      },
       ...schema,
     },
     {
