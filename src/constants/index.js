@@ -9,7 +9,7 @@ const APIResponses = {
     return {
       headers,
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, status: 'success' }),
     };
   },
 
@@ -17,7 +17,7 @@ const APIResponses = {
     return {
       headers,
       statusCode: 400,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ data, status: 'error' }),
     };
   },
 };

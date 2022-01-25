@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "dynamoose": "^2.8.5",
+    "nanoid": "^3.2.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {

@@ -69,6 +69,12 @@ const userSchema = genSchema({
   },
 });
 
-const User = model('User_rcv001', userSchema);
+const User = model('User_rcv001', userSchema, {
+  create: true,
+  throughput: {
+    read: 5,
+    write: 5,
+  },
+});
 
 export default User;

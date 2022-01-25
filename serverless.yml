@@ -24,6 +24,20 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  region: us-east-1
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:CreateTable
+      Resource: '*'
 
 plugins:
   - serverless-bundle
@@ -71,6 +85,18 @@ functions:
   #         cors: true
   hello:
     handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: POST
+          cors: true
+  getUserById:
+    handler: src/lambdas/user/index.getUser
+    events:
+      - http:
+          path: user
+          method: GET
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
