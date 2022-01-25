@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
-export const createUser = async (userBody) => {
+const createUser = async (userBody) => {
   if (await User.scan().where('email').eq(userBody.email).exec()) {
     throw new Error('User already exists');
   }
@@ -17,11 +17,18 @@ export const createUser = async (userBody) => {
   });
 };
 /**
- * Create a user
- * description: Builds a new user
+ * Get a user
+ * description: return user based on ID
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
-export const getUserById = async (userId) => {
+const getUserById = async (userId) => {
   return User.get(userId);
 };
+
+const UserService = {
+  createUser,
+  getUserById,
+};
+
+export default UserService;

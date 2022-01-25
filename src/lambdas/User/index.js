@@ -1,12 +1,14 @@
-import APIResponses from '../../constants';
-import * as UserService from '../../services/user';
+import APIResponses from '../../common';
+import UserService from '../../services/user';
 
-export async function getUser(event) {
+export const getUser = async (event) => {
   try {
-    const queryStringParameters = event.queryStringParameters;
-    const { id } = queryStringParameters;
+    if (!event?.pathParameters.ID) {
+      return APIResponses._400({ message: 'missing the ID from the path' });
+    }
 
-    const user = await UserService.getUserById(id);
+    const user = await UserService.getUserById(event.pathParameters.ID);
+
     if (!user) {
       return APIResponses._400({
         error: 'User not found',
@@ -22,4 +24,18 @@ export async function getUser(event) {
       error: error.message,
     });
   }
-}
+};
+
+export const createUser = async (event) => {
+  try {
+    const request = JSON.parse(event.body);
+    const newUser = await UserService.createUser(request);
+    return APIResponses._200({
+      data: newUser,
+    });
+  } catch (error) {
+    return APIResponses._400({
+      error: error.message,
+    });
+  }
+};

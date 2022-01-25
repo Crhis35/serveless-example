@@ -18,7 +18,7 @@ service: rankcv-api
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '2'
+frameworkVersion: '2 || 3'
 
 provider:
   name: aws
@@ -29,14 +29,9 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:CreateTable
+        - dynamodb:*
+        - s3:*
+        - ses:*
       Resource: '*'
 
 plugins:
@@ -76,25 +71,25 @@ plugins:
 #    - include-me-dir/**
 
 functions:
-  # getUser:
-  #   handler: src/lambdas/getUser.handler
-  #   events:
-  #     - http:
-  #         path: get-user/{ID}
-  #         method: GET
-  #         cors: true
-  hello:
-    handler: handler.hello
+  createUser:
+    handler: src/lambdas/user/index.createUser
     events:
       - http:
-          path: /
+          path: /user
+          method: POST
+          cors: true
+  sendEmail:
+    handler: src/lambdas/email/index.sendEmail
+    events:
+      - http:
+          path: /send-email
           method: POST
           cors: true
   getUserById:
     handler: src/lambdas/user/index.getUser
     events:
       - http:
-          path: user
+          path: user/{ID}
           method: GET
           cors: true
 #    The following are a few example events you can configure
