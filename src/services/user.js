@@ -1,5 +1,5 @@
 import User from '../models/User';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 
 /**
  * Create a user
@@ -13,7 +13,7 @@ const createUser = async (userBody) => {
     throw new Error('User already exists');
   }
   return User.create({
-    id: nanoid(),
+    id: uuid(),
     ...userBody,
   });
 };

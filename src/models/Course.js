@@ -18,7 +18,7 @@ const courseSchema = genSchema({
     required: true,
     default: 0,
   },
-  categoryId: CourseCategory,
+  categoryId: [CourseCategory],
 });
 
 const Course = model('Course_rcv001', courseSchema);

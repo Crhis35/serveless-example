@@ -23,24 +23,26 @@ frameworkVersion: '2 || 3'
 custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
-  stage: ${opt:stage, self:provider.stage}
+  stage: ${sls:stage, self:provider.stage}
 
 provider:
   name: aws
   runtime: nodejs12.x
-  lambdaHashingVersion: 20201221
   region: us-east-1
 
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:*
-        - s3:*
-        - ses:*
-      Resource: '*'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+            - s3:*
+            - ses:*
+          Resource: '*'
 
 plugins:
   - serverless-bundle
+  - serverless-offline
 
 # you can overwrite defaults here
 #  stage: dev
@@ -77,27 +79,9 @@ plugins:
 #    - include-me-dir/**
 
 functions:
-  createUser:
-    handler: src/lambdas/user/index.createUser
-    events:
-      - http:
-          path: /user
-          method: POST
-          cors: true
-  sendEmail:
-    handler: src/lambdas/email/index.sendEmail
-    events:
-      - http:
-          path: /send-email
-          method: POST
-          cors: true
-  getUserById:
-    handler: src/lambdas/user/index.getUser
-    events:
-      - http:
-          path: user/{ID}
-          method: GET
-          cors: true
+  # Users lambdas
+  - ${file(resources/user.yml)}
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

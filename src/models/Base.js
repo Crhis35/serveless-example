@@ -12,6 +12,11 @@ const genSchema = (schema) => {
         type: [String],
         required: false,
       },
+      active: {
+        type: Boolean,
+        required: true,
+        default: true,
+      },
       ...schema,
     },
     {

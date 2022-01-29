@@ -1,0 +1,21 @@
+createUser:
+  handler: src/lambdas/user/index.createUser
+  events:
+    - http:
+        path: /user
+        method: POST
+        cors: true
+sendEmail:
+  handler: src/lambdas/email/index.sendEmail
+  events:
+    - http:
+        path: /send-email
+        method: POST
+        cors: true
+getUserById:
+  handler: src/lambdas/user/index.getUser
+  events:
+    - http:
+        path: user/{ID}
+        method: GET
+        cors: true
