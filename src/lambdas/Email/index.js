@@ -29,6 +29,7 @@ export const sendEmail = async (event) => {
 
   try {
     await transporter.sendMail(mailOptions);
+
     return APIResponses._200({
       msg: 'Email sent successfully',
     });
